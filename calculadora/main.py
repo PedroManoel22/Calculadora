@@ -1,15 +1,19 @@
 import sys
 
+from buttons import ButtonsGrid
 from display import Display
 from info import Info
 from main_window import MainWindow
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
+from styles import setupTheme
 from variables import WINDOW_ICON_PATH
 
 if __name__ == "__main__":
     # Cria a aplicação
+
     app = QApplication(sys.argv)
+    setupTheme(app)
     window = MainWindow()
 
     # Define o ícone
@@ -18,7 +22,7 @@ if __name__ == "__main__":
     window.setWindowIcon(icon)
 
     # Info
-    info = Info("2.0 ^ 10.0 = 1024")
+    info = Info("Sua Conta")
     window.addToVlayout(info)
 
     # Display
@@ -26,7 +30,11 @@ if __name__ == "__main__":
     # display.setPlaceholderText("Digite algo:") # Se quiser colocar um placeholder
     window.addToVlayout(display)
 
+    # Grid
+    buttonsGrid = ButtonsGrid(display, info, window)
+    window.addToVlayout(buttonsGrid)
+
     # Executa tudo
-    window.show()
     window.adjustFixedSize()
+    window.show()
     app.exec()
